@@ -3,7 +3,7 @@ import java.util.*;
 public class Dice {
 
   public static int numSamples = 10000;
-  public static int dieSize = 20;
+  public static int dieSize = 6;
   
     public static void main(String[] args) {        
 
@@ -18,14 +18,26 @@ public class Dice {
       int p1Wins = 0;
       int ties = 0;
       for (int s = 0; s < numSamples; s++) {
-          int r1 = nDmKiller(p1,dieSize);
-          int r2 = nDmKiller(p2,dieSize);
+          int r1 = nDmDBA(p1,dieSize);
+          int r2 = nDmDBA(p2,dieSize);
           if (r1 > r2)
             p1Wins++;
           else if (r1 == r2)
             ties++;
       }
       System.out.println("after "+numSamples+" trials "+p1+"D"+dieSize+" beats/ties/loses to "+p2+"D"+dieSize+" "+((double)p1Wins/numSamples)+"/"+((double)ties/numSamples)+"/"+((double)(numSamples-(p1Wins+ties))/numSamples));
+  }
+  
+   public static int nDmDBA(int n,int m) {
+    //System.out.println("nDmKiller "+n+" "+m);
+    
+    int total = 0;
+    
+    Random rand = new Random(); 
+    
+    int value = rand.nextInt(m-1) + 1 + n;
+    
+    return value;
   }
   
   public static int nDmKiller(int n,int m) {
